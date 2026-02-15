@@ -1,0 +1,104 @@
+import os
+import sys
+from collections import defaultdict
+
+def generate_index():
+    structure = defaultdict(list)
+    
+    # フォルダ探索
+    for root, dirs, files in os.walk("."):
+        if ".git" in root or ".github" in root:
+            continue
+        for file in files:
+            if file.endswith(".html") and file != "index.html":
+                rel_path = os.path.relpath(os.path.join(root, file), ".")
+                url_path = rel_path.replace(os.sep, '/')
+                folder_name = url_path.split('/')[0] if '/' in url_path else "Root"
+                structure[folder_name].append((file, url_path))
+
+    sorted_years = sorted(structure.keys(), reverse=True)
+
+    # HTMLの組み立て
+    content = f"""<!DOCTYPE html>
+<html lang='ja'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>English Journaling Archives</title>
+    <style>
+        body {{ font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }}
+        .container {{ max-width: 800px; margin: 0 auto; position: relative; }}
+        h1 {{ text-align: center; color: #1a73e8; margin-bottom: 30px; }}
+        
+        /* 更新ボタンのスタイル */
+        .refresh-btn {{
+            position: fixed; bottom: 30px; right: 30px;
+            background: #1a73e8; color: white; border: none; padding: 15px 20px;
+            border-radius: 50px; cursor: pointer; font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: all 0.3s;
+            text-decoration: none; display: flex; align-items: center; gap: 8px;
+        }}
+        .refresh-btn:hover {{ background: #1557b0; transform: scale(1.05); }}
+
+        .year-section {{ margin-bottom: 15px; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }}
+        .year-header {{ 
+            padding: 20px; background: #fff; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            font-size: 1.2rem; font-weight: bold; color: #3c4043; border-bottom: 1px solid #eee;
+        }}
+        .year-header:hover {{ background-color: #f8f9fa; }}
+        .year-header::after {{ content: '▼'; font-size: 0.8rem; transition: transform 0.3s; }}
+        
+        .file-list {{ display: none; padding: 10px 20px; background: #fafafa; }}
+        .year-section.open .file-list {{ display: block; }}
+        .year-section.open .year-header::after {{ transform: rotate(180deg); }}
+
+        .file-item {{ 
+            display: block; text-decoration: none; color: #5f6368; padding: 12px; margin: 8px 0;
+            background: white; border-radius: 6px; border: 1px solid #dadce0; transition: all 0.2s;
+        }}
+        .file-item:hover {{ border-color: #1a73e8; color: #1a73e8; transform: translateX(5px); background: #e8f0fe; }}
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <h1>English Journaling Archives</h1>
+        
+        <div id="status-msg" style="text-align:center; color:green; font-size:0.8rem;"></div>
+
+"""
+    
+    for year in sorted_years:
+        content += f"""
+        <div class='year-section'>
+            <div class='year-header' onclick="this.parentElement.classList.toggle('open')">{year}年</div>
+            <div class='file-list'>"""
+        
+        sorted_files = sorted(structure[year], key=lambda x: x[1], reverse=True)
+        for filename, path in sorted_files:
+            content += f"<a href='{path}' class='file-item'>📄 {filename}</a>"
+        content += "</div></div>"
+
+    content += """
+    </div>
+    
+    <button class='refresh-btn' onclick="runUpdate()">🔄 目次を更新</button>
+
+    <script>
+        document.querySelector('.year-section')?.classList.add('open');
+
+        function runUpdate() {
+            // ローカル環境（file://）で開いている場合、ユーザーにbat実行を促すか
+            // もしPythonで簡易サーバーを立てているならAPIを叩けますが、
+            // 最もシンプルな運用として「更新ボタンが押された」ことを通知します。
+            alert("目次を最新にします。この後、update_index.batを実行するか、Pythonスクリプトを再実行してください。\\n\\n※自動更新を組み込む場合はPythonサーバーが必要です。");
+        }
+    </script>
+</body>
+</html>"""
+
+    with open("index.html", "w", encoding="utf-8") as f:
+        f.write(content)
+    print(f"Index generated with {len(sorted_years)} folders.")
+
+if __name__ == "__main__":
+    generate_index()
