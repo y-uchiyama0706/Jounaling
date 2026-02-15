@@ -1,32 +1,59 @@
 import os
+from pathlib import Path
 
 def generate_index():
     html_links = []
     
-    # フォルダ内を再帰的に探索
+    # 現在のディレクトリ以下を探索
     for root, dirs, files in os.walk("."):
-        # .github などの隠しフォルダは除外
-        if ".github" in root or ".git" in root:
-            continue
-            
+        # 隠しフォルダを除外
+        dirs[:] = [d for d in dirs if not d.startswith('.')]
+        
         for file in files:
-            # HTMLファイルを探す（自分自身は除外）
             if file.endswith(".html") and file != "index.html":
-                # index.htmlからの相対パスを取得
-                relative_path = os.path.relpath(os.path.join(root, file), ".")
-                html_links.append(relative_path)
-
-    # 新しい順（アルファベット逆順）に並べ替え
+                # 相対パスを取得
+                rel_path = os.path.relpath(os.path.join(root, file), ".")
+                # Windowsパスを/に統一
+                rel_path = rel_path.replace("\\", "/")
+                html_links.append(rel_path)
+    
+    # 新しい順にソート
     html_links.sort(reverse=True)
-
-    # index.htmlの書き出し
+    
+    # index.htmlを生成
     with open("index.html", "w", encoding="utf-8") as f:
-        f.write("<html><head><meta charset='utf-8'><title>English Journaling</title></head><body>")
-        f.write("<h1>English Journaling 目次</h1><ul>")
+        f.write("""<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Journaling Index</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        h1 { color: #333; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin: 10px 0; }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>English Journaling 目次</h1>
+    <p>Total entries: """ + str(len(html_links)) + """</p>
+    <ul>
+""")
+        
         for path in html_links:
-            # フォルダ名/ファイル名 という形でリンクが貼られる
-            f.write(f'<li><a href="{path}">{path}</a></li>')
-        f.write("</ul></body></html>")
+            # フォルダ名/ファイル名の形式で表示
+            display_name = path.replace("./", "")
+            f.write(f'        <li><a href="{path}">{display_name}</a></li>\n')
+        
+        f.write("""    </ul>
+</body>
+</html>
+""")
+    
+    print(f"Generated index.html with {len(html_links)} entries")
 
 if __name__ == "__main__":
     generate_index()
