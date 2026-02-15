@@ -1,0 +1,28 @@
+name: Auto Generate Index
+on:
+  push:
+    branches: [ main ] # mainにpushされたら動く
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # GitHubが自分自身を書き換える許可
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run Script
+        run: python make_index.py # さっきのスクリプトを実行
+
+      - name: Commit and Push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add index.html
+          git commit -m "Auto-update index.html [skip ci]" || exit 0
+          git push
