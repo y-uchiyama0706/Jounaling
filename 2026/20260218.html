@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20260218 - English Learning</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .english-text {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            line-height: 2;
+        }
+        
+        .english-text p {
+            margin-bottom: 20px;
+        }
+        
+        .highlight {
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        
+        .highlight:hover {
+            background: #e3f2fd;
+        }
+        
+        .japanese-text {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            border-left: 4px solid #95a5a6;
+        }
+        
+        .japanese-text h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .japanese-text p {
+            margin-bottom: 15px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s ease;
+            position: relative;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .explanation {
+            display: none;
+        }
+        
+        .explanation.active {
+            display: block;
+        }
+        
+        .explanation h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .explanation h4 {
+            color: #34495e;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .explanation h5 {
+            color: #34495e;
+            margin-top: 10px;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        
+        .explanation p {
+            margin-bottom: 10px;
+        }
+        
+        .explanation ul, .explanation ol {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .explanation li {
+            margin-bottom: 5px;
+        }
+        
+        .explanation strong {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .explanation em {
+            font-style: italic;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .close-btn:hover {
+            background: #c0392b;
+        }
+        
+        .modal-content h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            padding-right: 80px;
+        }
+        
+        .audio-player {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #ecf0f1;
+            border-radius: 6px;
+        }
+        
+        audio {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>20260218</h1>
+            <p>ハイライト部分をクリックすると解説が表示されます</p>
+        </div>
+        
+        <div class="content">
+            
+            
+            <div class="english-text">
+                <p>I woke up once around 7:50 this morning. It was the day for collecting mixed paper, but I didn’t have the energy to get up and went back to sleep. <span class="highlight" style="color: #2ecc71;" data-explanation="eventually">Eventually,</span> I got up, <span class="highlight" style="color: #2ecc71;" data-explanation="hurriedly-changed">hurriedly changed</span>, and took the paper to the collection point. I made it around 8:20<span class="highlight" style="color: #2ecc71;" data-explanation="which-was-a-relief">, which was a relief.</span></p>
+                <p>After feeding the cat, I took a bath. Afterward, I wanted to move the refrigerator I had tied with ropes yesterday, but since it was still before 10:00, I decided to wait a little to avoid disturbing the neighbors.</p>
+                <p>Around 11:00, I started moving it. When I tried to <span class="highlight" style="color: #2ecc71;" data-explanation="get-the-refrigerator-out-of-the-entrance">get the refrigerator out of the entrance</span>, <span class="highlight" style="color: #2ecc71;" data-explanation="the-vertical-rope-loosened-causing-a-problem-1">the vertical rope loosened, causing a problem.</span> The rope tied around the legs started to <span class="highlight" style="color: #2ecc71;" data-explanation="come-undone">come undone</span>, but I managed to retie it enough to prevent it from completely loosening and carried it downstairs. Moving it from the third floor to the second floor was a bit challenging at first, but after that <span class="highlight" style="color: #2ecc71;" data-explanation="i-got-the-hang-of-it">I got the hang of it</span> and was able to move it more smoothly than expected. <span class="highlight" style="color: #2ecc71;" data-explanation="i-had-considered-placing">I had considered placing</span> a blanket or <span class="highlight" style="color: #2ecc71;" data-explanation="cardboard">cardboard</span> underneath to help it slide, but the truck rope worked perfectly. The whole task took about 15 minutes. It ended up being a completely different method from what I had planned, and I realized I need to improve my rope-tying skills.</p>
+                <p>After moving the refrigerator, I started preparing the shipments for the smartphone screen protector and the Sixpad that sold yesterday. To see if the Sixpad would fit in a Yu-Packet-only box, I tested it using a similar-sized box from Yamato that I hadn’t used before and confirmed it would fit. I bought the envelope and box at Lawson and immediately dropped them in the mailbox. The Sixpad box got briefly stuck at the entrance of the mailbox but went in successfully. After that, I bought a chicken soboro bento and salted squid at Big-A for lunch.</p>
+                <p>After eating lunch at home, I applied for a health checkup in Tachikawa. I wanted to have it at the Tachikawa Health Checkup Plaza, so I made a reservation by phone. Since the National Health Insurance’s specific health checkup can’t be booked online, I waited about ten minutes to reach an operator. I had planned to take both the specific health checkup and a full medical checkup, but since the items overlap, I found out that just the full medical checkup would be enough. The cost is 21,250 yen, but Tachikawa City provides a subsidy of up to 20,000 yen, so my out-of-pocket expense is only 1,250 yen. I had some questions about whether to bring the subsidy voucher and the report, so I confirmed with the city’s Pension and Insurance Division. I learned that the set of three duplicate forms includes both the subsidy voucher and the report, and the report is submitted to the city by the Health Checkup Plaza.</p>
+                <p>Around 16:30, the collection company called, so I changed and waited on the first floor. When they arrived, I handed them the recycling ticket and the collection fee of 4,400 yen.</p>
+                <p>Around 8:00 p.m., I submitted the bicycle parking permit application to the municipal office. Since the office was closed, I dropped it in the mailbox. After returning home, I went to Lawson to buy cigarettes.</p>
+                <p>Getting rid of the refrigerator and washing machine made my 3.5-tatami room feel much more spacious. I’m thinking of turning it into a smoking room.</p>
+            </div>
+            
+            <div class='japanese-text'><h3>和訳</h3><p>今朝は7:50頃に一度目を覚ました。今日は雑紙の回収日だったが、起きる気力がなく二度寝。しかし、最終的に起きて急いで着替え、ゴミ置き場に雑紙を出しに行った。8:20頃で間に合い、ほっとした。</p>
+                <p>猫に餌をあげたあと入浴。入浴後は、昨日紐で縛った冷蔵庫をすぐに搬出したかったが、まだ10:00前だったので、近所に気兼ねして少し時間を遅らせることにした。</p>
+                <p>11:00頃、搬出を開始。冷蔵庫を玄関から出そうとしたとき、縦向きに縛った紐が緩んでトラブルが発生。脚に縛った紐がほどけかけたが、応急処置でほどけない程度に縛り直し、そのまま階下に下ろした。3階から2階への移動は少し苦労したが、それ以降は操作に慣れ、予想以上にスムーズに搬出できた。毛布や段ボールを下に敷くことも考えたが、トラックロープがうまく役割を果たした。作業はおよそ15分で終了。当初の予定とは異なる方法で搬出することになり、ロープの結び方も工夫が必要だと感じた。</p>
+                <p>搬出後、昨日売れたスマホ用ディスプレイ保護フィルムとシックスパッドの発送準備に取り掛かる。シックスパッドがゆうパケット専用ダンボールに収まるか確認するため、先日使わなかったクロネコヤマトの同サイズ段ボールに入れて試し、なんとか収まることを確認。ローソンで封筒とダンボールを購入し、すぐにポストに投函した。シックスパッドの箱はポストの入口で一瞬引っかかったが、無事投函できた。その後、Big-Aで鶏そぼろ弁当と塩辛を昼食用に購入。</p>
+                <p>自宅で昼食を済ませた後、立川市の健康診断の申し込みをする。立川健診プラザで受けたいと考え、電話で予約。国保の特定健診はWeb予約不可で、オペレーターにつながるまで10分ほど待った。特定健診と人間ドックの両方を受ける予定だったが、項目が重複しているため、人間ドックだけで十分と知り、21,250円のうち立川市から20,000円の補助金が出るので自己負担は1,250円となる。補助金利用券と報告書の持参について疑問があったため、市役所の年金保険課に確認。複写式の書類3枚セットの中に補助金利用券と報告書が含まれており、報告書は健診プラザが市に提出するものだと分かった。</p>
+                <p>16:30頃、回収業者から連絡があり、着替えて1階で待機。業者到着後、リサイクル券と回収料金4,400円を渡す。</p>
+                <p>夜8:00頃、自治体に駐輪場使用許可申請書を提出。営業時間外だったためポストに投函。その後、自宅に戻ってからローソンでタバコを購入。</p>
+                <p>冷蔵庫と洗濯機を処分したことで、3畳半の部屋がずいぶんすっきりした。スモーキングルームにしようかと考えている。</p></div>
+        </div>
+    </div>
+    
+    <div id="eventually" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('eventually')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>Eventually,</h3>
+                        <div>
+                            <p>Eventually,</p>
+<p>大まかな意味</p>
+<p>「ついに」「結局」「最終的には」「いよいよ」という意味です。</p>
+<p>意味と用法</p>
+<p>時間の経過を強調する</p>
+<p>：紆余曲折や遅延、長い待ち時間の末に何かが起こった際に使われます。</p>
+<p>最終的な結果を示す</p>
+<p>：途中の過程がどうであれ、最終的に行き着いた結論や状況を指します。</p>
+<p>文脈での使用例</p>
+<p>この英文では、朝7:50に一度目が覚めたものの、エネルギーが湧かず二度寝してしまい、その後「ようやく（結局）」起き上がったという文脈で使われています。単に「起きた」という事実だけでなく、葛藤や時間の経過を経て重い腰を上げたというニュアンスが含まれています。</p>
+<p>文法・語法のポイント</p>
+<p>副詞として文頭、文中、文末のどこでも使えますが、文頭に置くと「ようやく感」がより強調されます。</p>
+<p>Example:</p>
+<p>Eventually</p>
+<p>, I found my lost keys.（ついに失くした鍵を見つけた。）</p>
+<p>また、"Finally" と似ていますが、"Eventually" は「（遅かれ早かれ）いつかはそうなる」という自然な流れや結果に焦点が当たることが多いです。</p>
+<p>表現のニュアンス</p>
+<p>日常会話からビジネス、執筆まで幅広く使われる標準的な表現です。期待していたことがやっと起きたというポジティブな場面だけでなく、避けられなかった不都合な結果（結局壊れてしまった、など）に対しても使われます。</p>
+<p>全体の自然な訳</p>
+<p>「ようやく（起きた）」</p>
+<p>「結局（起きた）」</p>
+<p>「最終的には（起きた）」</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="hurriedly-changed" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('hurriedly-changed')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>hurriedly changed</h3>
+                        <div>
+                            <p>hurriedly changed,</p>
+<p>大まかな意味</p>
+<p>「急いで着替えた」「慌てて服を着替えた」という意味です。</p>
+<p>意味と用法</p>
+<p>動作の素早さを示す</p>
+<p>：時間がなくて焦っている様子や、急ぎの用事のために素早く行動したことを表します。</p>
+<p>副詞＋動詞の組み合わせ</p>
+<p>：副詞の "hurriedly" が動詞 "changed"（着替えた）を修飾し、どのように着替えたかという態様を説明しています。</p>
+<p>文脈での使用例</p>
+<p>この文脈では、二度寝からようやく起き出した後、資源ごみの回収時間に間に合わせるために、慌ただしく身支度を整えた様子を表現しています。単に「着替えた」だけでなく、時間に追われている切迫感が伝わる表現です。</p>
+<p>文法・語法のポイント</p>
+<p>"hurriedly" は「急いで」「慌てて」という意味の副詞です。対義語としては "leisurely"（ゆっくりと、のんびりと）などが挙げられます。</p>
+<p>Example: He</p>
+<p>hurriedly</p>
+<p>ate his breakfast.（彼は急いで朝食を食べた。）</p>
+<p>また、"changed" はこの文脈では "changed clothes" の "clothes" が省略された形として「着替えた」という意味で機能しています。</p>
+<p>表現のニュアンス</p>
+<p>「急いで」を表す表現には "quickly" もありますが、"hurriedly" は単にスピードが速いだけでなく、「慌ただしさ」や「心の焦り」といったニュアンスがより強く含まれます。日常会話でも文芸表現でもよく使われる標準的な表現です。</p>
+<p>全体の自然な訳</p>
+<p>「急いで着替えた」</p>
+<p>「慌てて着替えを済ませた」</p>
+<p>「せかせかと着替えた」</p>
+<p>change だけで「着替える」という意味になるんだ？</p>
+<p>大まかな意味</p>
+<p>「着替える」「服を改める」「（おむつなどを）取り替える」という意味です。</p>
+<p>意味と用法</p>
+<p>自動詞としての用法</p>
+<p>：目的語（clothesなど）を伴わずに "change" 単体で「服を着替える」という動作を表します。</p>
+<p>文脈依存の省略</p>
+<p>：日常会話では「何を着替えるか」が明白なため、"clothes" を省略するのが一般的です。</p>
+<p>文脈での使用例</p>
+<p>今回の英文 "hurriedly changed" では、朝起きて外出するために「急いで服を着替えた」という文脈です。わざわざ "changed my clothes" と言わなくても、前後の状況から「服を着替えた」ことであると自然に伝わります。</p>
+<p>文法・語法のポイント</p>
+<p>"change" は多機能な動詞ですが、身だしなみに関する文脈では以下のようにも使われます。</p>
+<p>change into [服]</p>
+<p>: 「〜に着替える」</p>
+<p>Example: I</p>
+<p>changed into</p>
+<p>my pajamas.（パジャマに着替えた。）</p>
+<p>change out of [服]</p>
+<p>: 「〜を脱いで（別の服に）着替える」</p>
+<p>Example: He</p>
+<p>changed out of</p>
+<p>his suit.（彼はスーツを脱いで着替えた。）</p>
+<p>a change of clothes</p>
+<p>: 「着替え（一式）」という名詞句。</p>
+<p>表現のニュアンス</p>
+<p>非常にカジュアルかつ一般的な表現です。フォーマルな場では "dress" や "get changed" と言うこともありますが、日常の動作としては "change" 単体、あるいは "get changed" が最も自然に響きます。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="which-was-a-relief" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('which-was-a-relief')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>, which was a relief.</h3>
+                        <div>
+                            <h5>, which was a relief.</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「（それができて）ほっとした」「安心した」という意味です。</p>
+<p><strong>意味と用法</strong></p>
+<ul>
+<li><strong>非限定用法の関係代名詞</strong>：直前の文の内容全体（8:20に間に合ったこと）を指して、「そのことが安心材料となった」と説明を加えています。</li>
+<li><strong>感情の付加</strong>：事実を述べた後に、その事実に対して自分がどう感じたかを付け加える際によく使われる形です。</li>
+</ul>
+<p><strong>文脈での使用例</strong></p>
+<p>この英文では、二度寝してしまい資源ごみの回収に間に合うか怪しい状況でしたが、8:20に集積所に到着できたという事実に対し、「（間に合って）安心した」という安堵の気持ちを表現しています。</p>
+<p><strong>文法・語法のポイント</strong></p>
+<p>コンマ（,）＋ which を使うことで、直前の名詞だけでなく「文全体の内容」を受けることができます。</p>
+<ul>
+<li>Example: I passed the exam<strong>, which</strong> made my parents happy.（試験に合格し、そのことが両親を喜ばせた。）</li>
+</ul>
+<p>また、"relief" は「安心」「安堵」という名詞です。"It was a relief to..."（〜して安心した）という構文の変形として機能しています。</p>
+<p><strong>表現のニュアンス</strong></p>
+<p>「よかった」「助かった」というニュアンスを含みます。"I'm relieved."（私は安心した）と言うよりも、その「状況そのものが安心できるものだった」という客観的かつ少し落ち着いた響きになります。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「（間に合って）一安心した」</li>
+<li>「ほっとした」</li>
+<li>「それで安心できた」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="get-the-refrigerator-out-of-the-entrance" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('get-the-refrigerator-out-of-the-entrance')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>get the refrigerator out of the entrance</h3>
+                        <div>
+                            <h5>get the refrigerator out of the entrance</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「冷蔵庫を玄関から出す」「玄関から冷蔵庫を運び出す」という意味です。</p>
+<p><strong>意味と用法</strong></p>
+<ul>
+<li><strong>移動の動作を示す</strong>：動詞 "get" ＋ 目的語（refrigerator） ＋ 方向（out of...）の組み合わせで、「対象をある場所から外へ移動させる」という一連の動作を表します。</li>
+<li><strong>物理的な搬出</strong>：狭い場所や特定の出口（entrance）を通過させて外に運び出す際によく使われる表現です。</li>
+</ul>
+<p><strong>文脈での使用例</strong></p>
+<p>この英文では、古い冷蔵庫を処分するために家から運び出すシーンで使われています。玄関という限られたスペースから大きな冷蔵庫を外へ出す際に、ロープが緩むなどのトラブルが発生したという状況を説明しています。</p>
+<p><strong>文法・語法のポイント</strong></p>
+<p>"get [物] out of [場所]" は、単に「出す」だけでなく「（苦労して）引っ張り出す」「取り出す」といったニュアンスを含みます。</p>
+<ul>
+<li>Example: I can't <strong>get</strong> the cork <strong>out of</strong> the bottle.（ボトルからコルクが抜けない。）</li>
+</ul>
+<p>また、"entrance" は「入り口」「玄関」を指し、日本の住宅事情であれば「玄関口」から搬出することを具体的に示しています。</p>
+<p><strong>表現のニュアンス</strong></p>
+<p>"move"（動かす）や "carry"（運ぶ）よりも、「（何とかして）外へ出す」という結果にフォーカスした日常的な言い回しです。引っ越しや大きな家具の移動の際に非常によく使われます。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「冷蔵庫を玄関から運び出す」</li>
+<li>「玄関から冷蔵庫を出す」</li>
+<li>「冷蔵庫を玄関の外へやる」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="come-undone" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('come-undone')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>come undone</h3>
+                        <div>
+                            <h5>come undone</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「（結び目などが）ほどける」「（ボタンなどが）外れる」「（計画などが）だめになる」という意味です。</p>
+<p><strong>意味と用法</strong></p>
+<ul>
+<li><strong>物理的な変化を示す</strong>：靴紐、ロープ、ネクタイなどの結び目が、意図せず緩んだり解けたりする状態を表します。</li>
+<li><strong>比喩的な崩壊を示す</strong>：感情的に「理性が崩壊する」「ボロボロになる」や、計画が「破綻する」という意味でも使われます。</li>
+</ul>
+<p><strong>文脈での使用例</strong></p>
+<p>この文脈では、冷蔵庫を運ぶために脚の部分に巻いていたロープが「解け始めてしまった（started to come undone）」という状況で使われています。重い物を運んでいる最中に、固定していた結び目が緩んで外れそうになった焦りを表現しています。</p>
+<p><strong>文法・語法のポイント</strong></p>
+<p>"come" + 形容詞で「〜の状態になる」という変化を表す語法です（例：come true = 実現する）。"undone" は「元通りでない」「解かれた」という形容詞です。</p>
+<ul>
+<li>Example: My shoelaces <strong>came undone</strong>.（靴紐がほどけた。）</li>
+<li>Example: The whole plan <strong>came undone</strong>.（計画がすべて台無しになった。）</li>
+</ul>
+<p><strong>表現のニュアンス</strong></p>
+<p>"untied"（解かれた）よりも、自然に、あるいは勝手に「解けてしまった」というニュアンスが強く、予期せぬトラブルの際によく使われる自然な表現です。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「ほどける」</li>
+<li>「（結び目が）解ける」</li>
+<li>「（固定が）外れる」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="i-got-the-hang-of-it" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('i-got-the-hang-of-it')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>I got the hang of it</h3>
+                        <div>
+                            <h5>I got the hang of it</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「コツを掴んだ」「やり方が分かってきた」「慣れてきた」という意味です。</p>
+<p><strong>意味と用法</strong></p>
+<ul>
+<li><strong>習熟のプロセスを示す</strong>：最初は難しかったり、やり方が分からなかったりしたことに対して、練習や経験を通じて「あ、こうすればいいんだ」と理解した瞬間に使われます。</li>
+<li><strong>感覚的な理解</strong>：頭で理解するというよりは、体や感覚で「コツ」を飲み込むニュアンスが強い表現です。</li>
+</ul>
+<p><strong>文脈での使用例</strong></p>
+<p>冷蔵庫を3階から2階へ階段で運ぶ作業において、最初は苦戦したものの、途中で「どう動かせばスムーズか」というコツを掴み、それ以降は予想以上にうまく進められたという場面で使われています。</p>
+<p><strong>文法・語法のポイント</strong></p>
+<p>"get the hang of [something]" という形で使われます。</p>
+<ul>
+<li>Example: It’s hard at first, but you’ll soon <strong>get the hang of it</strong>.（最初は大変だけど、すぐにコツを掴めるよ。）</li>
+</ul>
+<p>"hang" はもともと「重さのバランス」や「扱い方」を指し、それを手に入れる（get）ことで「コツを掴む」という意味になります。</p>
+<p><strong>表現のニュアンス</strong></p>
+<p>非常に日常的でよく使われるイディオムです。自転車の乗り方、新しいソフトの使い方、あるいは今回のような力仕事の進め方など、技術やコツが必要なあらゆる場面で使えます。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「コツを掴んだ」</li>
+<li>「要領が分かってきた」</li>
+<li>「感覚を掴んだ」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="i-had-considered-placing" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('i-had-considered-placing')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>considerはto doを取れなかったっけ？</h3>
+                        <div>
+                            <h5>I had considered placing</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「〜することを検討していた」「〜しようかと思っていた」という意味です。</p>
+<p><strong>意味と用法</strong></p>
+<ul>
+<li><strong>熟考を示す</strong>：何かを決定する前に、その選択肢についてあれこれと考えを巡らせる様子を表します。</li>
+<li><strong>動名詞（-ing）を伴う</strong>：ご質問の通り、<strong>consider は後ろに to do（不定詞）を取ることはできず、必ず動名詞（-ing）を取ります。</strong></li>
+</ul>
+<p><strong>文脈での使用例</strong></p>
+<p>冷蔵庫を滑らせて運ぶために、下に毛布や段ボールを敷こうかと「考えていた（検討していた）」場面で使われています。実際にはトラックロープがうまく機能したため、その案は実行されなかったというニュアンスが含まれています。</p>
+<p><strong>文法・語法のポイント</strong></p>
+<p><strong>consider + -ing</strong> は英語学習者が間違いやすい重要なポイントです。</p>
+<ul>
+<li><strong>正：</strong> I considered <strong>moving</strong>.（引っ越しを考えた。）</li>
+<li><strong>誤：</strong> I considered to move.（×）</li>
+</ul>
+<p>もし「〜しようと思う」を <strong>to do</strong> で言いたい場合は、<strong>decide to do</strong>（することに決める）や <strong>plan to do</strong>（する計画を立てる）を使う必要があります。</p>
+<p><strong>表現のニュアンス</strong></p>
+<p>「ふと思った」というよりは、具体的な方法や選択肢として「検討した」という少し真面目な響きがあります。ビジネスシーンでも「検討事項」として非常によく使われる動詞です。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「（下に敷くことを）考えていた」</li>
+<li>「（〜することを）検討していた」</li>
+<li>「（〜しようかと）思っていた」</li>
+</ul>
+<h5>consider A to do もないってことだね。</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「Aが～すること（する状態であること）を検討する・見なす」という意味で使いたい場合、<strong>"consider A to be [状態]"</strong> という形はありますが、<strong>"consider A to do [動作]"</strong> という形は一般的ではありません。</p>
+<p><strong>意味と用法</strong></p>
+<ul>
+<li><strong>基本は [consider + -ing]</strong>：自分が何かをすることを考える場合は、先ほどお伝えした通り動名詞（-ing）のみです。</li>
+<li><strong>[consider A to be B]</strong>：「AをB（の状態）だと見なす」という判断や思考を表す際に使われます。この <strong>to be</strong> は省略されることも多いです。</li>
+<li>Example: I <strong>consider</strong> him <strong>(to be)</strong> a friend.（彼を友人だと見なしている。）</li>
+</ul>
+<p><strong>文法・語法のポイント</strong></p>
+<p>ご質問の「Aに〜するように検討する（頼む・仕向ける）」といった使役的なニュアンスで <strong>to do</strong> を使いたい場合は、別の動詞を使うのが自然です。</p>
+<ul>
+<li><strong>expect A to do</strong>: Aが〜することを期待する</li>
+<li><strong>ask A to do</strong>: Aに〜するように頼む</li>
+<li><strong>want A to do</strong>: Aに〜してほしい</li>
+</ul>
+<p><strong>表現のニュアンス</strong></p>
+<p>"consider" はあくまで「頭の中での思考プロセス（検討・考慮・見なす）」に留まる動詞です。そのため、具体的な「動作（to do）」へ向かわせる力は持たず、状態（to be）や内容（-ing）を対象とします。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「Aを～だと見なす」（consider A to be...）</li>
+<li>「Aを～だと考える」（consider A as...）</li>
+</ul>
+<p>「Aに〜してもらうことを検討する」と言いたい場合は、<strong>"consider having A do..."</strong> のように、動名詞の中に使役動詞を組み込む形になります。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="the-vertical-rope-loosened-causing-a-problem-1" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('the-vertical-rope-loosened-causing-a-problem-1')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>こういう分詞構文の使い方よく見るよね。</h3>
+                        <div>
+                            <h5>the vertical rope loosened, causing a problem.</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「縦のロープが緩み、そのせいで問題が生じた」「縦のロープが緩んでしまい、トラブルになった」という意味です。</p>
+<p><strong>意味と用法</strong></p>
+<ul>
+<li><strong>結果を表す分詞構文</strong>：文のメインの内容（ロープが緩んだ）の後にコンマを置き、その結果として何が起きたか（問題が生じた）を補足しています。</li>
+<li><strong>因果関係の明示</strong>：前の出来事が原因となって、後ろの出来事が引き起こされたことを示します。</li>
+</ul>
+<p><strong>文脈での使用例</strong></p>
+<p>冷蔵庫を玄関から運び出そうとした際、縦に巻いていたロープが不意に緩んでしまい、それが原因で作業が滞ったり、危険な状態になったりしたという状況を説明しています。</p>
+<p><strong>文法・語法のポイント</strong></p>
+<p>「S + V, 〜ing」の形で、前の文全体を理由として「そしてその結果〜した」と訳すと自然です。</p>
+<ul>
+<li>Example: It rained heavily, <strong>causing</strong> a flood.（大雨が降り、その結果洪水が起きた。）</li>
+</ul>
+<p>この構文は、2つの出来事を「and」でつなぐよりも、因果関係（〜のせいで〜になった）がより直接的に伝わります。</p>
+<p><strong>表現のニュアンス</strong></p>
+<p>客観的に事実の連鎖を述べる響きがあり、ニュース記事やレポート、今回のような日記形式の記述で非常によく使われる「こなれた」表現です。日常会話では "and it caused a problem" と言うことも多いですが、書き言葉や少し整理された説明ではこの分詞構文が好まれます。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「縦のロープが緩んでしまい、問題が起きた」</li>
+<li>「縦のロープが緩んだことで、トラブルが生じた」</li>
+<li>「縦のロープが緩み、それが問題となった」</li>
+</ul>
+<p>次は、どのようなフレーズを解説しましょうか？</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="cardboard" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('cardboard')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>cardboard</h3>
+                        <div>
+                            <h5>cardboard</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「段ボール」「厚紙」という意味です。</p>
+<p><strong>意味と用法</strong></p>
+<ul>
+<li><strong>素材としての名称</strong>：波状の芯を紙で挟んだ、梱包や工作に使われる「段ボール」そのものを指します。</li>
+<li><strong>不可算名詞（数えられない名詞）</strong>：素材そのものを指すときは不可算名詞として扱われます。「段ボール箱」と言いたい場合は <strong>cardboard box</strong> とするのが一般的です。</li>
+</ul>
+<p><strong>文脈での使用例</strong></p>
+<p>冷蔵庫を移動させる際、床を滑りやすくしたり傷を防いだりするために、下に敷く候補として「毛布（blanket）」と並んで「段ボール（cardboard）」が挙げられています。</p>
+<p><strong>文法・語法のポイント</strong></p>
+<p>「1枚の段ボール」と言いたい場合は <strong>a piece of cardboard</strong> と表現します。</p>
+<ul>
+<li>Example: I recycled the <strong>cardboard boxes</strong>.（段ボール箱をリサイクルに出した。）</li>
+<li>Example: The floor was covered with <strong>cardboard</strong>.（床が段ボールで覆われていた。）</li>
+</ul>
+<p><strong>表現のニュアンス</strong></p>
+<p>「段ボール」は日本語では箱の状態を指すことが多いですが、英語の <strong>cardboard</strong> はあくまで「厚紙という素材」のニュアンスが強いです。箱を指したいときは <strong>box</strong> を付け足すとより明確になります。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「段ボール」</li>
+<li>「厚紙」</li>
+</ul>
+<p>次は、どのフレーズについて詳しくお伝えしましょうか？</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+    <script>
+        document.querySelectorAll('.highlight').forEach(highlight => {
+            highlight.addEventListener('click', function(e) {
+                const explanationId = this.dataset.explanation;
+                const modal = document.getElementById(explanationId);
+                
+                document.querySelectorAll('.modal').forEach(m => {
+                    m.classList.remove('active');
+                });
+                
+                modal.classList.add('active');
+            });
+        });
+        
+        function closeExplanation(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+        
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(m => {
+                    m.classList.remove('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
