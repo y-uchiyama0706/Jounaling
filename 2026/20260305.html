@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20260305 - English Learning</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .english-text {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            line-height: 2;
+        }
+        
+        .english-text p {
+            margin-bottom: 20px;
+        }
+        
+        .highlight {
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        
+        .highlight:hover {
+            background: #e3f2fd;
+        }
+        
+        .japanese-text {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            border-left: 4px solid #95a5a6;
+        }
+        
+        .japanese-text h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .japanese-text p {
+            margin-bottom: 15px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s ease;
+            position: relative;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .explanation {
+            display: none;
+        }
+        
+        .explanation.active {
+            display: block;
+        }
+        
+        .explanation h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .explanation h4 {
+            color: #34495e;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .explanation h5 {
+            color: #34495e;
+            margin-top: 10px;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        
+        .explanation p {
+            margin-bottom: 10px;
+        }
+        
+        .explanation ul, .explanation ol {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .explanation li {
+            margin-bottom: 5px;
+        }
+        
+        .explanation strong {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .explanation em {
+            font-style: italic;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .close-btn:hover {
+            background: #c0392b;
+        }
+        
+        .modal-content h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            padding-right: 80px;
+        }
+        
+        .audio-player {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #ecf0f1;
+            border-radius: 6px;
+        }
+        
+        audio {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>20260305</h1>
+            <p>ハイライト部分をクリックすると解説が表示されます</p>
+        </div>
+        
+        <div class="content">
+            
+            
+            <div class="english-text">
+                <p>European politics is often described today as “shifting to the right.” Indeed, it is true that <span class="highlight" style="color: #2ecc71;" data-explanation="right-wing-populist-forces">right-wing populist forces</span> are <span class="highlight" style="color: #2ecc71;" data-explanation="expanding-their-support">expanding their support</span> across many countries.  <br>However, when we <span class="highlight" style="color: #2ecc71;" data-explanation="take-a-broader-view-of">take a broader view of</span> Europe as a whole, the situation is not so simple. <span class="highlight" style="color: #2ecc71;" data-explanation="alongside">Alongside</span> the rise of the right, there have also been liberal backlashes and <span class="highlight" style="color: #2ecc71;" data-explanation="counter-alliances-among-parties">counter-alliances among parties</span>.</p>
+                <p>In other words, what is happening in Europe today is not a <span class="highlight" style="color: #2ecc71;" data-explanation="one-directional">one-directional</span> shift to the right, but rather a “multipolarization” in which political forces are <span class="highlight" style="color: #2ecc71;" data-explanation="spreading-out">spreading out</span> <span class="highlight" style="color: #2ecc71;" data-explanation="across-the-ideological-spectrum">across the ideological spectrum</span>.</p>
+                <p>## 1. The Rise of Right-Wing Populism and Its “<span class="highlight" style="color: #2ecc71;" data-explanation="dual-nature">Dual Nature</span>”<br>Across Europe, right-wing forces are strengthening their influence in many countries. This trend reflects growing dissatisfaction with established <span class="highlight" style="color: #2ecc71;" data-explanation="centrist-parties">centrist parties</span>, which has <span class="highlight" style="color: #2ecc71;" data-explanation="created-an-opening">created an opening</span> for <span class="highlight" style="color: #2ecc71;" data-explanation="emerging-movements">emerging movements</span> commonly described as right-wing populist parties.</p>
+                <p><span class="highlight" style="color: #2ecc71;" data-explanation="prominent-examples-include">Prominent examples include</span> the United Kingdom’s Reform UK, France’s National Rally, Germany’s Alternative for Germany (AfD), Austria’s Freedom Party of Austria (FPÖ), and Italy’s League and Brothers of Italy.  <br>These movements have expanded their support in many countries, and in some cases—such as Italy and Hungary—they are already in power.</p>
+                <p>## 2. <span class="highlight" style="color: #2ecc71;" data-explanation="the-drivers-of-change">The Drivers of Change</span>: Three “Spark Points” Moving Voters<br>In recent years, right-wing populist parties have increasingly become a political outlet for voters who distrust the existing political system.  <br><span class="highlight" style="color: #2ecc71;" data-explanation="behind-this-shift-lie-several-crises-unfolding-simultaneously">Behind this shift lie several crises unfolding simultaneously.</span></p>
+                <p>① Rising Cost of Living (Economic Factor)  <br>In addition to post-pandemic inflation, <span class="highlight" style="color: #2ecc71;" data-explanation="the-surge-in-energy-prices">the surge in energy prices</span> triggered by Russia’s invasion of Ukraine has hit household finances hard. Many citizens now feel a direct squeeze on their living standards.</p>
+                <p>② Backlash Against Environmental Policies (Policy Factor)<br>Environmental policies introduced to combat climate change often involve higher energy costs and stricter regulations. As a result, many ordinary citizens and businesses—already struggling with rising prices—perceive them as policies imposed by elites, providing fertile ground for right-wing criticism.</p>
+                <p>③ The Resurgence of Migration and Refugee Issues (Social Factor)<br>Anti-immigration sentiment, which had somewhat subsided after the European migrant crisis, has intensified again due to the prolonged presence of Ukrainian refugees and an increase in irregular migration.</p>
+                <p>In some countries, political polarization is also deepening. In the United Kingdom, for example, while the right-wing Reform UK has gained support, the left-leaning Green Party of England and Wales has also expanded its base.  <br>Older voters tend to favor right-wing parties, while younger voters are more inclined toward left-wing parties, suggesting that generational differences in values are also driving political polarization.</p>
+                <p>## 3. The “Liberal Backlash”<br>Although European politics may appear to be shifting to the right, signs of a liberal backlash aimed at defending democratic values have also become visible in 2026.</p>
+                <p>Portugal (February 2026)  <br>In the presidential election, António José Seguro won a landslide victory, signaling strong public support for “rejecting the far right” and maintaining social stability.</p>
+                <p>The Netherlands (February 2026)  <br>A government led by Rob Jetten came to power, bringing parties that emphasize climate action and liberal values into leadership.</p>
+                <p>The Nordic Countries (Norway and Denmark)  <br>Supported by strong welfare-state systems, center-left governments continue to maintain stable public backing.</p>
+                <p>## 4. The “Cordon Sanitaire”: A Political Firewall Against the Far Right<br>Even when right-wing populist parties make major electoral gains, other parties sometimes cooperate to prevent the formation of far-right governments.  <br>In political science, this strategy is known as a cordon sanitaire—a political firewall designed to exclude far-right parties from governing coalitions.</p>
+                <p>France and Spain  <br>Parties often cooperate under the principle that “anyone except the far right” should work together, thereby preventing far-right parties from taking power.</p>
+                <p>Austria  <br>Although the Freedom Party of Austria emerged as the largest party, centrist and liberal parties formed a coalition that excluded the far right from government.</p>
+                <p>## 5. The “Pragmatization” of Far-Right Governments<br>Even when right-wing populist parties take power, they do not always implement radical policies.</p>
+                <p>In Italy, for example, the government led by Giorgia Meloni has moderated many of its earlier hard-line positions and has maintained a pragmatic foreign policy that values relations with the EU and NATO.</p>
+                <p>In contrast, Hungary under Viktor Orbán has continued to maintain a pro-Russia and Eurosceptic stance, and it continues to influence decision-making within the European Union.</p>
+                <p>## 6. Conclusion: Not Rightward Shift, but “Multipolarization”<br>Looking at European politics as a whole, it is inaccurate to describe it simply as a shift to the right.</p>
+                <p>First, although right-wing forces are indeed gaining strength, once in power they often moderate their policies and adopt a more pragmatic approach.  <br>Second, the rise of the right has triggered strong counter-mobilization from liberal and left-leaning forces.  <br>Third, traditional two-party systems are weakening, while polarization toward both the right and the left is intensifying.</p>
+                <p>In other words, Europe today is not moving in a single direction.  <br>Amid major crises such as inflation and war, societies across the continent are in a period of turbulence, searching for new forms of politics while undergoing significant political realignment.</p>
+            </div>
+            
+            <div class='japanese-text'><h3>和訳</h3><p>欧州政治はいま「右傾化している」としばしば語られる。実際、各国で右派ポピュリズム勢力が支持を拡大しているのは事実だ。  <br>しかし欧州全体を俯瞰すると、状況はそれほど単純ではない。右派の伸長と同時に、リベラル勢力の揺り戻しや政党間の対抗連合も生まれているからだ。</p>
+                <p>つまり現在のヨーロッパで起きているのは「右傾化」という一方向の変化ではなく、政治勢力が左右に分かれていく「多極化」である。</p>
+                <p>### 1. 右派ポピュリズムの伸長とその「二面性」</p>
+                <p>現在、欧州では右派勢力が各国で影響力を強めている。既存の中道政党に対する不満を背景に、「右派ポピュリズム」と呼ばれる新興勢力が支持を拡大しているためだ。</p>
+                <p>代表的な例として、イギリスのReform UK、フランスのNational Rally（国民連合）、ドイツのAlternative for Germany（ドイツのための選択肢）、オーストリアのFreedom Party of Austria（オーストリア自由党）、イタリアのLeague (Italy)（同盟）やBrothers of Italy（イタリアの同胞）などが挙げられる。  <br>これらの勢力は多くの国で支持を拡大しており、イタリアやハンガリーではすでに政権を担っている。</p>
+                <p>### 2. 変容の背景：有権者を突き動かす「3つの火種」<br>近年支持を集めている右派ポピュリズム政党は、既存の政治体制に不信感を抱く有権者の受け皿となっている。 <br>その背景には、いくつかの危機が同時に進行していることがある。<br>**① 生活コストの増大（経済的要因）**  <br>コロナ禍後のインフレに加え、Russian invasion of Ukraine（ロシアによるウクライナ侵攻）によるエネルギー価格の高騰が家計を直撃した。多くの市民が生活の圧迫を実感している。<br>**② 環境政策への反発（政策的要因）**  <br>気候変動対策として進められてきた環境政策は、エネルギー価格の上昇や規制強化を伴う場合が多い。その結果、物価高に苦しむ庶民や企業から「エリートの押し付け」と受け取られ、右派勢力の批判材料となった。<br>**③ 移民・難民問題の再燃（社会的要因）**  <br>European migrant crisis（欧州難民危機）以降いったん沈静化していた反移民感情は、ウクライナ難民の長期化や非正規移民の増加によって再び強まっている。</p>
+                <p>さらに一部の国では、政治的分極化も進んでいる。イギリスでは右派のReform UKが支持を伸ばす一方、左派のGreen Party of England and Wales（イングランド・ウェールズ緑の党）も同時に支持を拡大している。  <br>中高年層は右派、若年層は左派を支持する傾向があり、政治の分極化の背景には世代間の価値観の違いもある。<br>### 3. 左派・リベラル勢力の「揺り戻し」<br>欧州政治は右傾化しているように見えるが、2026年に入り、リベラルな民主主義を守ろうとする「揺り戻し」の動きも目立っている。</p>
+                <p>**ポルトガル（2026年2月）**  <br>大統領選挙ではAntónio José Seguro（アントニオ・ジョゼ・セグーロ）氏が圧勝し、「極右への拒絶」と「社会的安定」を求める民意が示された。</p>
+                <p>**オランダ（2026年2月）**  <br>Rob Jetten（ロブ・イェテン）氏が率いる政権が誕生し、気候変動対策やリベラルな価値観を重視する勢力が政権を担うことになった。</p>
+                <p>**北欧（ノルウェー・デンマーク）**  <br>手厚い福祉国家モデルを背景に、中道左派政権が依然として安定した支持を維持している。</p>
+                <p>### 4. 極右を阻む「防波堤（コルドン・サニテール）」<br>右派ポピュリズム政党が躍進しても、極右政権の誕生を防ぐために他党が協力するケースも見られる。  <br>これは政治学で「コルドン・サニテール」と呼ばれる戦略で、極右政党を連立から排除するための政治的防波堤である。</p>
+                <p>**フランス・スペイン**  <br>「極右以外なら誰でも協力する」という形で政党間の共闘が行われ、極右勢力の政権獲得を阻止している。</p>
+                <p>**オーストリア**  <br>Freedom Party of Austria（オーストリア自由党）が第1党となったものの、中道・リベラル勢力が連立を組み、極右を政権から排除した。<br>### 5. 極右政権の「現実路線化」<br>右派ポピュリズム政党が政権を取った場合でも、必ずしも急進的な政策が実行されるわけではない。<br>イタリアでは、Giorgia Meloni（ジョルジャ・メローニ）政権が従来の過激な主張を抑え、EUやNATOとの関係を重視する現実的な外交姿勢を維持している。<br>一方で、ハンガリーではViktor Orbán（ヴィクトル・オルバン）政権が親ロシア・反EU的な姿勢を崩しておらず、EUの意思決定に影響を与え続けている。<br>### 6. 結論：右傾化ではなく「多極化」<br>欧州政治を俯瞰すると、単純に「右に傾いている」と見るのは正確ではない。<br>第一に、右派勢力の伸長は確かに起きているが、政権を担うと多くの場合は現実路線へと修正される。  <br>第二に、右派の台頭に対する危機感から、リベラル・左派による強い揺り戻しも起きている。  <br>第三に、従来の二大政党制が弱まり、左右双方への分極化が進んでいる。</p>
+                <p>つまり現在の欧州は、一つの方向へ進んでいるわけではない。  <br>インフレや戦争といった大きな危機の中で、新しい政治の形を模索しながら、社会全体が大きく揺れ動いている段階にあると言える。</p></div>
+        </div>
+    </div>
+    
+    <div id="right-wing-populist-forces" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('right-wing-populist-forces')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>right-wing populist forces</h3>
+                        <div>
+                            <h5>right-wing populist forces</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「右翼ポピュリスト勢力」「右派大衆主義的な政治勢力」という意味です。</p>
+<p><strong>文の構造</strong></p>
+<ul>
+<li><strong>right-wing</strong>：右翼の、右派の</li>
+<li><strong>populist</strong>：ポピュリスト的な（エリートに反対し、「一般市民の声」を代弁すると主張するスタイル）</li>
+<li><strong>forces</strong>：勢力、力（ここでは政治的な集団・運動を指す）</li>
+</ul>
+<p><strong>文法・語法のポイント</strong></p>
+<p>`forces` は複数形で「勢力」「陣営」を意味し、政治・軍事の文脈でよく使われます。</p>
+<ul>
+<li>例：<em>left-wing forces</em>（左翼勢力）、<em>pro-democracy forces</em>（民主主義勢力）</li>
+</ul>
+<p><strong>表現のニュアンス</strong></p>
+<p>やや分析的・客観的なニュアンスを持つ表現で、ニュース記事や政治評論でよく登場します。`right-wing populist parties`（右翼ポピュリスト政党）と比べると、政党に限らず運動や世論なども含む、より広い概念です。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「右翼ポピュリスト勢力」</li>
+<li>「右派大衆主義的な政治勢力」</li>
+<li>「右派のポピュリズム運動」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="expanding-their-support" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('expanding-their-support')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>expandはこういう使い方もできるんだね</h3>
+                        <div>
+                            <h5>expanding their support</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「支持を広げている」「支持基盤を拡大している」という意味です。</p>
+<p><strong>文の構造</strong></p>
+<ul>
+<li><strong>expanding</strong>：拡大している（expandの現在分詞）</li>
+<li><strong>their support</strong>：彼らへの支持、彼らの支持基盤</li>
+</ul>
+<p><strong>文法・語法のポイント</strong></p>
+<p>`expand` は自動詞（広がる）としても他動詞（〜を広げる）としても使えます。ここでは他動詞として使われています。</p>
+<ul>
+<li>自動詞の例：<em>The movement expanded rapidly.</em>（その運動は急速に拡大した）</li>
+<li>他動詞の例：<em>They expanded their influence.</em>（彼らは影響力を拡大した）</li>
+</ul>
+<p>`support` は「支持」という抽象名詞で、`expand` の目的語として自然に使えます。同様の表現として：</p>
+<ul>
+<li><em>expand their base</em>（支持基盤を広げる）</li>
+<li><em>broaden their appeal</em>（訴求力を高める）</li>
+<li><em>grow their following</em>（支持者を増やす）</li>
+</ul>
+<p><strong>表現のニュアンス</strong></p>
+<p>フォーマルな文章・ニュース記事でよく使われる表現です。「じわじわと広がっている」という進行中のニュアンスが現在分詞（expanding）によって表されています。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「支持を拡大している」</li>
+<li>「支持基盤を広げている」</li>
+<li>「各国で勢力を伸ばしている」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="take-a-broader-view-of" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('take-a-broader-view-of')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>take a broader view of</h3>
+                        <div>
+                            <h5>take a broader view of</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「〜をより広い視点で見る」「〜を大局的に捉える」という意味です。</p>
+<p><strong>文の構造</strong></p>
+<ul>
+<li><strong>take a view</strong>：見方をする、見解をとる</li>
+<li><strong>broader</strong>：より広い（broadの比較級）</li>
+<li><strong>of</strong>：〜についての（viewの対象を示す）</li>
+</ul>
+<p><strong>文法・語法のポイント</strong></p>
+<p>`take a ~ view of ...` は「〜な見方で…を見る」という定型表現です。viewの前に形容詞を入れることで意味を調整できます。</p>
+<ul>
+<li><em>take a long-term view of</em>（〜を長期的視点で見る）</li>
+<li><em>take a positive view of</em>（〜を肯定的に見る）</li>
+<li><em>take a critical view of</em>（〜を批判的に見る）</li>
+</ul>
+<p>また `take a broader view` は `see the bigger picture`（大局を見る）と近い意味で使われることもあります。</p>
+<p><strong>表現のニュアンス</strong></p>
+<p>フォーマルな文章や論説でよく使われる表現です。「細部にとらわれず、もっと広い視野で物事を捉えよう」というニュアンスを含み、議論の転換点でよく登場します。本文でも「ヨーロッパ全体を俯瞰すると、話はそう単純ではない」という文脈で使われています。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「〜をより広い視点で見ると」</li>
+<li>「〜を大局的に捉えると」</li>
+<li>「〜全体を俯瞰してみると」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="alongside" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('alongside')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>Alongside</h3>
+                        <div>
+                            <h5>Alongside</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「〜と並んで」「〜と同時に」「〜に加えて」という意味です。</p>
+<p><strong>文の構造</strong></p>
+<ul>
+<li><strong>Along</strong>：沿って、並んで</li>
+<li><strong>side</strong>：側、横</li>
+<li>合わさって「〜の横に並んで」→「〜と同時に・〜とともに」という意味に発展</li>
+</ul>
+<p><strong>文法・語法のポイント</strong></p>
+<p>`alongside` は前置詞として使われ、直後に名詞（句）を置きます。</p>
+<ul>
+<li><em>Alongside the rise of the right, there have also been liberal backlashes.</em></li>
+</ul>
+<p>  （右派の台頭と並んで、リベラルな反発も起きている）</p>
+<p>「AとBが同時・並行して存在する」ことを表すのに便利な表現です。似た表現と比べると：</p>
+<ul>
+<li><em>in addition to</em>：単純に「〜に加えて」（並行性のニュアンスは薄い）</li>
+<li><em>alongside</em>：「〜と並行して・同時に」（対比や共存のニュアンスが強い）</li>
+</ul>
+<p><strong>表現のニュアンス</strong></p>
+<p>フォーマルな文章でよく使われます。「一方だけでなく、もう一方も同時に起きている」という共存・並行のニュアンスがあり、本文のように「右派台頭だけでなくリベラルな反発も起きている」という対比を示す文脈に特に適しています。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「右派の台頭と並んで」</li>
+<li>「右派の台頭と同時に」</li>
+<li>「右派の台頭とともに」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="counter-alliances-among-parties" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('counter-alliances-among-parties')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>counter-alliances among parties</h3>
+                        <div>
+                            <h5>counter-alliances among parties</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「政党間の対抗連合」「各党による反右派連立」という意味です。</p>
+<p><strong>文の構造</strong></p>
+<ul>
+<li><strong>counter-</strong>：対抗する、反〜（接頭辞）</li>
+<li><strong>alliances</strong>：同盟、連合、連立</li>
+<li><strong>among parties</strong>：政党間の、各党の間で</li>
+</ul>
+<p><strong>文法・語法のポイント</strong></p>
+<p>`counter-` は名詞や動詞の前につけて「〜に対抗する」という意味を加える接頭辞です。</p>
+<ul>
+<li><em>counter-attack</em>（反撃）</li>
+<li><em>counter-measure</em>（対抗措置）</li>
+<li><em>counter-movement</em>（対抗運動）</li>
+</ul>
+<p>`alliance` は国際関係や政治でよく使われる語で、複数形 `alliances` にすることで「複数の連合・連立」が各地で形成されていることを示しています。`among parties` の `among` は「〜の間で」という意味で、3者以上の関係に使います（2者間なら `between`）。</p>
+<p><strong>表現のニュアンス</strong></p>
+<p>フォーマルな政治・外交の文脈で使われる表現です。本文では右翼ポピュリスト勢力の台頭に対抗するために、他の政党が手を組むという文脈で使われています。後の `cordon sanitaire`（防疫線）の説明につながる概念です。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「政党間の対抗連合」</li>
+<li>「右派に対抗するための各党の連立」</li>
+<li>「反右派勢力による党派横断的な連合」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="one-directional" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('one-directional')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>one-directional</h3>
+                        <div>
+                            <h5>one-directional</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「一方向の」「一方向的な」という意味です。</p>
+<p><strong>文の構造</strong></p>
+<ul>
+<li><strong>one</strong>：一つの</li>
+<li><strong>directional</strong>：方向の、方向性のある</li>
+<li>合わさって「一つの方向への」という意味</li>
+</ul>
+<p><strong>文法・語法のポイント</strong></p>
+<p>`one-` を前につけることで「単一の〜」という意味を加えられます。</p>
+<ul>
+<li><em>one-sided</em>（一方的な）</li>
+<li><em>one-dimensional</em>（一次元的な、単純な）</li>
+<li><em>one-directional</em>（一方向的な）</li>
+</ul>
+<p>反意語は `multi-directional`（多方向的な）や、本文で使われている `multipolarization`（多極化）に相当する概念です。</p>
+<p><strong>表現のニュアンス</strong></p>
+<p>やや硬めの書き言葉で、論説や分析文でよく使われます。本文では「ヨーロッパの政治は単純に右傾化しているわけではない」という主張を強調するために使われており、`not a one-directional shift` という否定形で「物事はそう単純ではない」というニュアンスを出しています。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「一方向的なシフト」</li>
+<li>「単一方向への動き」</li>
+<li>「一方向だけへの変化」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="spreading-out" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('spreading-out')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>spreading out</h3>
+                        <div>
+                            <h5>spreading out</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「広がっている」「拡散している」「散らばっている」という意味です。</p>
+<p><strong>文の構造</strong></p>
+<ul>
+<li><strong>spreading</strong>：広がる（spreadの現在分詞）</li>
+<li><strong>out</strong>：外へ、広く（副詞）</li>
+<li>合わさって「外へ向かって広がっている」というイメージ</li>
+</ul>
+<p><strong>文法・語法のポイント</strong></p>
+<p>`spread out` は句動詞（phrasal verb）で、`spread` 単独よりも「四方八方に広がる」という拡散のニュアンスが強くなります。</p>
+<ul>
+<li><em>spread</em>：広がる（一般的）</li>
+<li><em>spread out</em>：広く散らばる、四方に拡散する</li>
+</ul>
+<p>似た句動詞との比較：</p>
+<ul>
+<li><em>branch out</em>（新分野に広がる）</li>
+<li><em>fan out</em>（扇状に広がる）</li>
+<li><em>spill over</em>（あふれ出る）</li>
+</ul>
+<p><strong>表現のニュアンス</strong></p>
+<p>カジュアルから中程度のフォーマルさで使える表現です。本文では政治勢力がイデオロギーの幅広いスペクトラムに「散らばっている」様子を表しており、一点に集中せず多方向に拡散しているイメージを伝えています。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「イデオロギーの幅全体に広がっている」</li>
+<li>「政治的スペクトラムに散らばっている」</li>
+<li>「様々な方向に拡散している」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="across-the-ideological-spectrum" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('across-the-ideological-spectrum')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>across the ideological spectrum</h3>
+                        <div>
+                            <h5>across the ideological spectrum</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「イデオロギーの幅全体にわたって」「政治的スペクトラムを横断して」という意味です。</p>
+<p><strong>文の構造</strong></p>
+<ul>
+<li><strong>across</strong>：〜を横断して、〜全体にわたって</li>
+<li><strong>the ideological spectrum</strong>：イデオロギーのスペクトラム（左から右までの政治的な幅）</li>
+</ul>
+<p><strong>文法・語法のポイント</strong></p>
+<p>`across` は「横断・網羅」のニュアンスを持つ前置詞で、範囲の広さを示します。</p>
+<ul>
+<li><em>across the country</em>（国全体にわたって）</li>
+<li><em>across all age groups</em>（全年齢層にわたって）</li>
+<li><em>across the political spectrum</em>（政治的スペクトラム全体で）</li>
+</ul>
+<p>`spectrum` はもともと光のスペクトラム（虹のように連続した帯）を意味し、政治の文脈では「左翼から右翼までの連続した幅」を指します。`ideological`（イデオロギー的な）を加えることで、より学術的・分析的な表現になっています。</p>
+<p><strong>表現のニュアンス</strong></p>
+<p>フォーマルな政治・学術的な文章で頻出する表現です。「左右どちらか一方ではなく、幅広い政治的立場に」というニュアンスを含み、本文の「多極化」という主張を支える重要なフレーズです。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「イデオロギーの幅全体にわたって」</li>
+<li>「政治的スペクトラムを横断して」</li>
+<li>「左から右まで幅広い政治的立場に」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="dual-nature" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('dual-nature')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>Dual Nature</h3>
+                        <div>
+                            <h5>Dual Nature</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「二面性」「二重の性質」という意味です。</p>
+<p><strong>文の構造</strong></p>
+<ul>
+<li><strong>dual</strong>：二つの、二重の</li>
+<li><strong>nature</strong>：性質、本質</li>
+<li>合わさって「二つの側面を持つ性質」というイメージ</li>
+</ul>
+<p><strong>文法・語法のポイント</strong></p>
+<p>`dual` は「二つの」を意味する形容詞で、`double` と似ていますが、より硬くフォーマルなニュアンスがあります。</p>
+<ul>
+<li><em>dual citizenship</em>（二重国籍）</li>
+<li><em>dual purpose</em>（二重目的）</li>
+<li><em>dual role</em>（二つの役割）</li>
+</ul>
+<p>`nature` は「自然」以外に「性質・本質」という意味でよく使われます。</p>
+<ul>
+<li><em>the nature of the problem</em>（問題の性質）</li>
+<li><em>human nature</em>（人間の本質）</li>
+</ul>
+<p><strong>表現のニュアンス</strong></p>
+<p>学術・分析的な文章でよく使われるフォーマルな表現です。本文の見出しでは、右翼ポピュリズムの台頭が単純に「右傾化」とは言えない複雑な二面性を持つことを示唆しています。「一見〜に見えるが、実はもう一つの側面もある」という分析的な視点を提示する際に効果的な表現です。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「二面性」</li>
+<li>「二重の性質」</li>
+<li>「相反する二つの側面」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="centrist-parties" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('centrist-parties')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>centrist parties</h3>
+                        <div>
+                            <h5>centrist parties</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「中道政党」「中間派の政党」という意味です。</p>
+<p><strong>文の構造</strong></p>
+<ul>
+<li><strong>centrist</strong>：中道の、中間派の</li>
+<li><strong>parties</strong>：政党（複数形）</li>
+</ul>
+<p><strong>文法・語法のポイント</strong></p>
+<p>政治的立場を表す `-ist` 形容詞の仲間です。</p>
+<ul>
+<li><em>leftist parties</em>（左翼政党）</li>
+<li><em>rightist parties</em>（右翼政党）</li>
+<li><em>centrist parties</em>（中道政党）</li>
+</ul>
+<p>名詞としても使えます：</p>
+<ul>
+<li><em>a centrist</em>（中道派の人）</li>
+<li><em>centrism</em>（中道主義）</li>
+</ul>
+<p>関連する表現として `the center` や `the mainstream` も「中道・主流派」を指す文脈で使われます。</p>
+<p><strong>表現のニュアンス</strong></p>
+<p>ニュースや政治評論でよく使われる中立的な表現です。本文では、既存の中道政党への不満が右翼ポピュリスト勢力台頭の背景にあるという文脈で使われています。`established centrist parties`（既成の中道政党）という形で、長年政治を担ってきた「主流派」というニュアンスが加わっています。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「中道政党」</li>
+<li>「中間派の政党」</li>
+<li>「既成の主流政党」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="created-an-opening" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('created-an-opening')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>created an opening</h3>
+                        <div>
+                            <h5>created an opening</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「（参入・台頭の）隙間を生み出した」「チャンスを作り出した」という意味です。</p>
+<p><strong>文の構造</strong></p>
+<ul>
+<li><strong>created</strong>：生み出した（createの過去形）</li>
+<li><strong>an opening</strong>：隙間、開口部、機会</li>
+</ul>
+<p><strong>文法・語法のポイント</strong></p>
+<p>`opening` は「開いている場所・隙間」という物理的な意味から転じて、「参入できる機会・余地」という比喩的な意味でよく使われます。</p>
+<ul>
+<li><em>create an opening</em>（隙間・チャンスを作る）</li>
+<li><em>find an opening</em>（隙間・機会を見つける）</li>
+<li><em>an opening in the market</em>（市場の参入余地）</li>
+</ul>
+<p>スポーツでも使われます：</p>
+<ul>
+<li><em>The defender created an opening for the striker.</em>（ディフェンダーがストライカーのためにスペースを作った）</li>
+</ul>
+<p><strong>表現のニュアンス</strong></p>
+<p>やや比喩的でこなれた表現で、ニュース・論説文でよく登場します。「障壁がなくなって入り込める隙間ができた」というニュアンスがあり、本文では「中道政党への不満が、右翼ポピュリスト政党が勢力を伸ばすための余地を生んだ」という文脈で使われています。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「（右翼ポピュリスト政党が台頭する）隙間を生み出した」</li>
+<li>「新興勢力が入り込む余地を作り出した」</li>
+<li>「新たな政治勢力にチャンスをもたらした」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="emerging-movements" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('emerging-movements')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>emerging movements</h3>
+                        <div>
+                            <h5>emerging movements</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「新興勢力」「台頭しつつある運動」という意味です。</p>
+<p><strong>文の構造</strong></p>
+<ul>
+<li><strong>emerging</strong>：台頭しつつある、新たに現れてきた（emergeの現在分詞が形容詞として使われている）</li>
+<li><strong>movements</strong>：運動、勢力</li>
+</ul>
+<p><strong>文法・語法のポイント</strong></p>
+<p>`emerging` は現在分詞が形容詞として名詞を修飾する形です。「今まさに出てきている」という進行中のニュアンスを持ちます。</p>
+<ul>
+<li><em>emerging markets</em>（新興市場）</li>
+<li><em>emerging technologies</em>（新興技術）</li>
+<li><em>emerging leaders</em>（新たに頭角を現しているリーダーたち）</li>
+</ul>
+<p>`movements` は単なる「政党」より広い概念で、組織化された政党だけでなく社会的な運動や潮流も含みます。`parties` との使い分けとして、`movements` はより草の根的・大衆的なニュアンスがあります。</p>
+<p><strong>表現のニュアンス</strong></p>
+<p>ニュースや政治評論でよく使われる表現です。「既存の主流派ではなく、新たに勢力を伸ばしてきた」というニュアンスを含み、本文では既成中道政党への対比として使われています。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「新興勢力」</li>
+<li>「台頭しつつある政治運動」</li>
+<li>「新たに頭角を現してきた勢力」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="prominent-examples-include" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('prominent-examples-include')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>Prominent examples include</h3>
+                        <div>
+                            <h5>Prominent examples include</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「代表的な例としては〜が挙げられる」「主な例には〜が含まれる」という意味です。</p>
+<p><strong>文の構造</strong></p>
+<ul>
+<li><strong>Prominent</strong>：著名な、代表的な、目立った</li>
+<li><strong>examples</strong>：例</li>
+<li><strong>include</strong>：〜を含む、〜が挙げられる</li>
+</ul>
+<p><strong>文法・語法のポイント</strong></p>
+<p>`include` は「〜を含む」という意味で、リストを導入する際によく使われます。主語と動詞の語順に注意が必要です。</p>
+<ul>
+<li>✅ <em>Examples include A, B, and C.</em></li>
+<li>❌ <em>Examples are included A, B, and C.</em></li>
+</ul>
+<p>似た表現との比較：</p>
+<ul>
+<li><em>Examples include ...</em>（〜が例として挙げられる）</li>
+<li><em>For example, ...</em>（例えば〜）</li>
+<li><em>Such as ...</em>（〜などのような）</li>
+</ul>
+<p>`prominent` は「目立つ・著名な」という意味で、単なる `typical`（典型的な）より「特に注目すべき」というニュアンスが強くなります。</p>
+<p><strong>表現のニュアンス</strong></p>
+<p>フォーマルな文章・論説でよく使われる表現です。複数の具体例を列挙する前置きとして非常に便利で、論文やニュース記事で頻出します。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「代表的な例としては〜が挙げられる」</li>
+<li>「主な例には〜が含まれる」</li>
+<li>「特筆すべき例として〜がある」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="the-drivers-of-change" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('the-drivers-of-change')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>The Drivers of Change</h3>
+                        <div>
+                            <h5>The Drivers of Change</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「変化の原動力」「変化を引き起こす要因」という意味です。</p>
+<p><strong>文の構造</strong></p>
+<ul>
+<li><strong>drivers</strong>：推進力、原動力（driveの名詞形）</li>
+<li><strong>of change</strong>：変化の（changeを修飾）</li>
+</ul>
+<p><strong>文法・語法のポイント</strong></p>
+<p>`driver` は本来「運転手」ですが、比喩的に「〜を動かす力・要因」という意味でビジネス・政治・経済の文脈でよく使われます。</p>
+<ul>
+<li><em>drivers of economic growth</em>（経済成長の原動力）</li>
+<li><em>drivers of inflation</em>（インフレの要因）</li>
+<li><em>key drivers</em>（主要な推進要因）</li>
+</ul>
+<p>似た表現との比較：</p>
+<ul>
+<li><em>drivers of change</em>：変化を「能動的に引き起こす力」というニュアンス</li>
+<li><em>causes of change</em>：より中立的に「変化の原因」</li>
+<li><em>factors of change</em>：「変化の要素・要因」（やや分析的）</li>
+</ul>
+<p><strong>表現のニュアンス</strong></p>
+<p>ビジネス・政治・学術の文章でよく使われるフォーマルな表現です。`driver` という語には「積極的に何かを推し進める力」というダイナミックなニュアンスがあり、単なる `cause`（原因）より能動的・力強い印象を与えます。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「変化の原動力」</li>
+<li>「変化を促す要因」</li>
+<li>「変化を引き起こす推進力」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="behind-this-shift-lie-several-crises-unfolding-simultaneously" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('behind-this-shift-lie-several-crises-unfolding-simultaneously')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>Behind this shift lie several crises unfolding simultaneously.</h3>
+                        <div>
+                            <h5>Behind this shift lie several crises unfolding simultaneously.</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「この変化の背景には、同時進行するいくつかの危機がある」という意味です。</p>
+<p><strong>文の構造</strong></p>
+<ul>
+<li><strong>Behind this shift</strong>：この変化の背景に（副詞句）</li>
+<li><strong>lie</strong>：存在する、ある</li>
+<li><strong>several crises</strong>：いくつかの危機（主語）</li>
+<li><strong>unfolding simultaneously</strong>：同時に展開しつつある（現在分詞句がcrisesを修飾）</li>
+</ul>
+<p><strong>文法・語法のポイント</strong></p>
+<p>この文は「倒置構文」が使われています。通常の語順は以下の通りです。</p>
+<ul>
+<li>通常：<em>Several crises unfolding simultaneously lie behind this shift.</em></li>
+<li>倒置：<em>Behind this shift lie several crises unfolding simultaneously.</em></li>
+</ul>
+<p>場所・方向を表す副詞句を文頭に置くと、主語と動詞が倒置されます。これは強調や文体的なリズムのために使われます。</p>
+<ul>
+<li><em>Here comes the bus.</em>（バスが来た）</li>
+<li><em>On the table lay a letter.</em>（テーブルの上に手紙があった）</li>
+</ul>
+<p>また `crises` は `crisis` の複数形です（`crisis` → `crises`）。</p>
+<p><strong>表現のニュアンス</strong></p>
+<p>フォーマルな文章・論説でよく使われる構文です。倒置によって「背景にある要因」を強調し、読者の注意を引く効果があります。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「この変化の背景には、同時進行するいくつかの危機がある」</li>
+<li>「このシフトの裏には、同時多発的に起きているいくつかの危機が潜んでいる」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="the-surge-in-energy-prices" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="closeExplanation('the-surge-in-energy-prices')">✕ 閉じる</button>
+                    <div class="explanation active">
+                        <h3>the surge in energy prices</h3>
+                        <div>
+                            <h5>the surge in energy prices</h5>
+<p><strong>大まかな意味</strong></p>
+<p>「エネルギー価格の急騰」「エネルギー価格の急激な上昇」という意味です。</p>
+<p><strong>文の構造</strong></p>
+<ul>
+<li><strong>the surge</strong>：急騰、急上昇</li>
+<li><strong>in energy prices</strong>：エネルギー価格における（surgeの内容を示す）</li>
+</ul>
+<p><strong>文法・語法のポイント</strong></p>
+<p>`surge` は名詞・動詞どちらでも使えます。</p>
+<ul>
+<li>名詞：<em>a surge in prices</em>（価格の急騰）</li>
+<li>動詞：<em>Prices surged.</em>（価格が急騰した）</li>
+</ul>
+<p>「価格の変動」を表す表現との比較：</p>
+<ul>
+<li><em>surge</em>：急激で大幅な上昇（最も強い）</li>
+<li><em>rise</em>：上昇（一般的）</li>
+<li><em>increase</em>：増加（中立的）</li>
+<li><em>spike</em>：一時的な急騰</li>
+</ul>
+<p>`in` は「〜における」という意味で、surgeの具体的な内容を示します。同様の使い方：</p>
+<ul>
+<li><em>a surge in demand</em>（需要の急増）</li>
+<li><em>a surge in cases</em>（感染者数の急増）</li>
+</ul>
+<p><strong>表現のニュアンス</strong></p>
+<p>ニュースや経済・政治の文章でよく使われる表現です。`surge` には「波が押し寄せる」という物理的なイメージがあり、急激で制御しにくい上昇というニュアンスを含みます。</p>
+<p><strong>全体の自然な訳</strong></p>
+<ul>
+<li>「エネルギー価格の急騰」</li>
+<li>「エネルギー価格の急激な上昇」</li>
+<li>「エネルギー価格の跳ね上がり」</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+    <script>
+        document.querySelectorAll('.highlight').forEach(highlight => {
+            highlight.addEventListener('click', function(e) {
+                const explanationId = this.dataset.explanation;
+                const modal = document.getElementById(explanationId);
+                
+                document.querySelectorAll('.modal').forEach(m => {
+                    m.classList.remove('active');
+                });
+                
+                modal.classList.add('active');
+            });
+        });
+        
+        function closeExplanation(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+        
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(m => {
+                    m.classList.remove('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
